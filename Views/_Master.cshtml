@@ -4,7 +4,8 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 
 <!DOCTYPE html>
-<html lang="en">
+<!-- UPDATED THIS LINE: use current culture instead of hardcoded "en" -->
+<html lang="@System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />

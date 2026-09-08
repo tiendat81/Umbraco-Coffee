@@ -1,0 +1,32 @@
+@using Umbraco.Cms.Core.Models.PublishedContent
+@model IPublishedContent
+
+@{
+    // Get all culture variants of the current node
+    var cultures = Model?.Cultures;
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+}
+
+@if (cultures != null && cultures.Count > 1)
+{
+    <div class="language-switcher ms-lg-3">
+        @foreach (var culture in cultures)
+        {
+            // culture.Key is the culture code, e.g., "en-US" or "vi-VN"
+            // Take the first 2 letters to display: EN, VN
+            var langCode = culture.Key.Split('-')[0].ToUpperInvariant();
+            var url = Model?.Url(culture.Key);
+
+            if (culture.Key.Equals(currentCulture, StringComparison.OrdinalIgnoreCase))
+            {
+                <!-- Active button: not clickable, distinct style -->
+                <span class="lang-btn lang-active">@langCode</span>
+            }
+            else
+            {
+                <!-- Inactive button: click to switch language -->
+                <a href="@url" class="lang-btn">@langCode</a>
+            }
+        }
+    </div>
+}
