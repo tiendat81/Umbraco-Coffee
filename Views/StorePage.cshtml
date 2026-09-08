@@ -1,0 +1,92 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.StorePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+@{
+    Layout = "_Master.cshtml";
+    ViewBag.Title = Model?.MetaTitle ?? "Store";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                    <h2 class="section-heading mb-5">
+                        <span class="section-heading-upper">Come On In</span>
+                        <span class="section-heading-lower">We're Open</span>
+                    </h2>
+
+                    <!-- Opening Hours -->
+                    @{
+                        var currentDay = DateTime.Now.DayOfWeek.ToString();
+                    }
+
+                    @if (Model?.OpeningHours != null)
+                    {
+                        <ul class="list-unstyled list-hours mb-5 text-left mx-auto">
+                            @foreach (var block in Model.OpeningHours)
+                            {
+                                if (block.Content.ContentType.Alias == "openingHourItem")
+                                {
+                                    var day = block.Content.Value<string>("dayOfWeek");
+                                    var hours = block.Content.Value<string>("hours");
+
+                                    bool isToday = string.Equals(day, currentDay, StringComparison.OrdinalIgnoreCase);
+
+                                    <li class="list-unstyled-item list-hours-item d-flex @(isToday ? "today" : "")">
+                                        <span class="">@day</span>
+                                        <span class="ms-auto">@hours</span>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    }
+
+                    <!-- Address -->
+                    @if (Model?.Address != null && !string.IsNullOrWhiteSpace(Model.Address.ToString()))
+                    {
+                        <p class="address mb-5">
+                            <em>
+                                @Model.Address
+                            </em>
+                        </p>
+                    }
+
+                    <!-- Phone -->
+                    @if (!string.IsNullOrWhiteSpace(Model?.PhoneNumber))
+                    {
+                        <p class="mb-0">
+                            <small><em>Call Anytime</em></small>
+                            <br />
+                            @Model.PhoneNumber
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Reuse About section for Store page -->
+<section class="page-section about-heading">
+    <div class="container">
+        <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="~/assets/img/about.jpg" alt="..." />
+        <div class="about-heading-content">
+            <div class="row">
+                <div class="col-xl-9 col-lg-10 mx-auto">
+                    <div class="bg-faded rounded p-5">
+                        <h2 class="section-heading mb-4">
+                            <span class="section-heading-upper">Strong Coffee, Strong Roots</span>
+                            <span class="section-heading-lower">About Our Cafe</span>
+                        </h2>
+                        <p>Founded in 1987 by the Hernandez brothers, our establishment has been serving up rich coffee sourced from artisan farmers in various regions of South and Central America. We are dedicated to travelling the world, finding the best coffee, and bringing back to you here in our cafe.</p>
+                        <p class="mb-0">
+                            We guarantee that you will fall in
+                            <em>lust</em>
+                            with our decadent blends the moment you walk inside until you finish your last sip. Join us for your daily routine, an outing with friends, or simply just to enjoy some alone time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

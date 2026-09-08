@@ -1,0 +1,49 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+@{
+    Layout = "_Master.cshtml";
+    ViewBag.Title = Model.MetaTitle ?? "Home";
+}
+
+<!-- Hero Section -->
+<section class="page-section clearfix">
+    <div class="container">
+        <div class="intro">
+            @if (Model.HeroImage != null)
+            {
+                <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="@Model.HeroImage.Url()" alt="@Model.HeroHeadingLower" />
+            }
+            <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                <h2 class="section-heading mb-4">
+                    <span class="section-heading-upper">@Model.HeroHeadingUpper</span>
+                    <span class="section-heading-lower">@Model.HeroHeadingLower</span>
+                </h2>
+                @if (!string.IsNullOrWhiteSpace(Model.HeroText?.ToString()))
+                {
+                    <p class="mb-3">@Model.HeroText</p>
+                }
+                <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" href="#!">Visit Us Today!</a></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                    <h2 class="section-heading mb-4">
+                        <span class="section-heading-upper">@Model.CtaHeadingUpper</span>
+                        <span class="section-heading-lower">@Model.CtaHeadingLower</span>
+                    </h2>
+                    @if (!string.IsNullOrWhiteSpace(Model.CtaText?.ToString()))
+                    {
+                        <p class="mb-0">@Model.CtaText</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

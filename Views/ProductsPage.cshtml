@@ -1,0 +1,40 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ProductsPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+@{
+    Layout = "_Master.cshtml";
+    ViewBag.Title = Model.MetaTitle ?? "Products";
+}
+
+@if (Model.ProductItems != null)
+{
+    foreach (var item in Model.ProductItems)
+    {
+        var content = (ContentModels.ProductItem)item.Content;
+        var isRight = content.ImagePosition == "Right";
+
+        <section class="page-section">
+            <div class="container">
+                <div class="product-item">
+                    <div class="product-item-title d-flex">
+                        <div class="bg-faded p-5 d-flex @(isRight ? "me-auto" : "ms-auto") rounded">
+                            <h2 class="section-heading mb-0">
+                                <span class="section-heading-upper">@content.HeadingUpper</span>
+                                <span class="section-heading-lower">@content.HeadingLower</span>
+                            </h2>
+                        </div>
+                    </div>
+                    @if (content.ProductImage != null)
+                    {
+                        <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="@content.ProductImage.Url()"
+                             alt="@content.HeadingLower" />
+                    }
+                    <div class="product-item-description d-flex @(isRight ? "ms-auto" : "me-auto")">
+                        <div class="bg-faded p-5 rounded">
+                            @content.Description        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}

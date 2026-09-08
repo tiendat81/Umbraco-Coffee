@@ -1,0 +1,31 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.AboutPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+@{
+    Layout = "_Master.cshtml";
+    ViewBag.Title = Model.MetaTitle ?? "About";
+}
+
+<section class="page-section about-heading">
+    <div class="container">
+        @if (Model.AboutImage != null)
+        {
+            <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="@Model.AboutImage.Url()" alt="@Model.AboutHeadingLower" />
+        }
+        <div class="about-heading-content">
+            <div class="row">
+                <div class="col-xl-9 col-lg-10 mx-auto">
+                    <div class="bg-faded rounded p-5">
+                        <h2 class="section-heading mb-4">
+                            <span class="section-heading-upper">@Model.AboutHeadingUpper</span>
+                            <span class="section-heading-lower">@Model.AboutHeadingLower</span>
+                        </h2>
+                        @if (!string.IsNullOrWhiteSpace(Model.AboutContent?.ToString()))
+                        {
+                            @Model.AboutContent
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
